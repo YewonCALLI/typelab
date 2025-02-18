@@ -3,14 +3,14 @@
 TypeLab은 각자의 작업물을 공유하고 협업하는 공간입니다.
 
 ## 📁 Repository Structure
-typelab/
-├── jihae/
-├── jungwoo/
-├── kimbom/
-├── sunghoon/
-├── yesul/
-├── yewon/
-├── yongpa/
+.
+├── jihae
+├── jungwoo
+├── kimbom
+├── sunghoon
+├── yesul
+├── yewon
+├── yongpa
 ├── LICENSE
 └── README.md
 
