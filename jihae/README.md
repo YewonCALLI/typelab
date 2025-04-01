@@ -1,12 +1,12 @@
 # [김지혜]
 
 ## 소개
-하는 일: 떠돌이 휴식인
-관심사: 손으로 꼼지락거리기
+하는 일: 떠돌이 휴식인 <br>
+관심사: 손으로 꼼지락거리기<br>
 배경: 광홍과 -> 시디과 -> 디컨 편입 -> 오소랩에서 졸업하기 시도 중
 
 ## 관심있는 작업
-링크: https://www.instagram.com/the.poet.engineer/
+링크: https://www.instagram.com/the.poet.engineer/<br>
 관심 포인트: 핸드 트래킹 -> 사운드 컨트롤 혹은 그래픽 컨트롤
 
 ## Type:Lab에서 해보고 싶은 것
