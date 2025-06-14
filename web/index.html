@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Iframe Slide Client</title>
+  <style>
+    html, body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+    }
+    #slider {
+      display: flex;
+      height: 100vh;
+      transition: transform 1s ease;
+    }
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="slider"></div>
+
+  <script>
+    const myId = new URLSearchParams(location.search).get("id");
+    if (!myId) {
+      alert("URL에 ?id=1~6 형식으로 붙여주세요.");
+      throw new Error("Missing id parameter");
+    }
+
+    const socket = new WebSocket(`ws://${location.hostname}:80/?id=${myId}`);
+    const slider = document.getElementById("slider");
+    let slideIndex = 0;
+
+    socket.onmessage = (e) => {
+      const [cmd, fromUrl, toUrl] = e.data.split(':');
+      if (cmd === 'init') {
+        // ✅ 초기 슬라이드 없이 한 번만 표시
+        const iframe = document.createElement('iframe');
+        iframe.src = `/display.html?url=${encodeURIComponent(toUrl)}`;
+        slider.appendChild(iframe);
+        // 보고
+        socket.send(`url:${toUrl}`);
+      } else if (cmd === 'switch') {
+        handleSwitch(toUrl);
+      }
+    };
+
+    function handleSwitch(url) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `/display.html?url=${encodeURIComponent(url)}`;
+      iframe.onload = () => socket.send(`url:${url}`);
+      slider.appendChild(iframe);
+      slideIndex++;
+      slider.style.transform = `translateX(-${slideIndex * 100}vw)`;
+
+      // ✅ 슬라이드가 끝난 후에 iframe 제거
+      setTimeout(() => {
+        if (slider.children.length > 2) {
+          slider.removeChild(slider.children[0]);
+          slideIndex--;
+
+          requestAnimationFrame(() => {
+            slider.style.transition = 'none';
+            slider.style.transform = `translateX(-${slideIndex * 100}vw)`;
+            requestAnimationFrame(() => {
+              slider.style.transition = 'transform 1s ease';
+            });
+          });
+        }
+      }, 1000); // 슬라이드 시간과 동일
+    }
+  </script>
+</body>
+</html>

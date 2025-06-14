@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Display</title></head>
+<body style="margin:0;overflow:hidden;background:black">
+  <script>
+    const url = new URLSearchParams(location.search).get("url");
+    if (!url) {
+      document.body.innerHTML = '<h1 style="color:white">No URL Provided</h1>';
+    } else {
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.style.width = "100vw";
+      iframe.style.height = "100vh";
+      iframe.style.border = "none";
+      document.body.appendChild(iframe);
+    }
+  </script>
+</body>
+</html>
